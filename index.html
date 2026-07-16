@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wardrobe Display</title>
+    <style>
+        :root {
+            --bg-a: #ffe5ec;
+            --bg-b: #fef6dd;
+            --phone-shell: #fff9fb;
+            --ink: #3c1d2f;
+            --muted: #775064;
+            --chip-bg: rgba(255, 255, 255, 0.78);
+            --chip-border: rgba(111, 69, 96, 0.24);
+            --chip-active: #b3477f;
+            --chip-active-border: #8f2f63;
+            --accent: #b3477f;
+            --name-bg: rgba(179, 71, 127, 0.48);
+            --desc-bg: rgba(255, 255, 255, 0.56);
+            --glow: 0 16px 36px rgba(125, 54, 94, 0.22);
+            --soft-transition: 360ms cubic-bezier(0.22, 0.77, 0.25, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "Avenir Next", "Segoe UI", sans-serif;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at 10% 8%, rgba(255, 255, 255, 0.55), transparent 46%),
+                radial-gradient(circle at 90% 90%, rgba(255, 221, 237, 0.5), transparent 42%),
+                linear-gradient(140deg, var(--bg-a), var(--bg-b));
+            display: grid;
+            /* place-items: center; */
+            padding: 20px 12px;
+        }
+
+        .phone {
+            width: min(390px, 100%);
+            border-radius: 34px;
+            border: 1px solid rgba(255, 255, 255, 0.52);
+            background: linear-gradient(165deg, rgba(255, 255, 255, 0.84), rgba(255, 250, 252, 0.68));
+            box-shadow: 0 30px 46px rgba(102, 48, 80, 0.26);
+            padding: 14px 14px 18px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(8px);
+        }
+
+        .app-shell {
+            opacity: 0;
+            transform: translateY(8px) scale(0.99);
+            transition: opacity 680ms ease, transform 680ms ease;
+        }
+
+        .app-shell.ready {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .intro-movie {
+            position: fixed;
+            inset: 0;
+            z-index: 20;
+            pointer-events: auto;
+            overflow: hidden;
+            opacity: 1;
+            transition: opacity 1000ms ease;
+            background: #120a10;
+        }
+
+        .intro-movie.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .intro-image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transform: scale(1.08);
+            animation: introImageIn 2800ms ease forwards;
+        }
+
+        .intro-shade {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 50% 35%, rgba(255, 200, 224, 0.22), transparent 45%),
+                linear-gradient(to bottom, rgba(25, 7, 16, 0.3), rgba(19, 8, 16, 0.72));
+        }
+
+        .intro-signature-wrap {
+            position: absolute;
+            left: 50%;
+            top: 52%;
+            transform: translate(-50%, -50%);
+            width: min(92vw, 760px);
+            pointer-events: none;
+        }
+
+        .intro-signature {
+            width: 100%;
+            height: auto;
+            overflow: visible;
+        }
+
+        .signature-stroke {
+            fill: transparent;
+            stroke: rgba(255, 240, 248, 0.98);
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            font-family: "Brush Script MT", "Segoe Script", "Snell Roundhand", cursive;
+            font-size: 132px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            paint-order: stroke fill;
+            stroke-dasharray: 1600;
+            stroke-dashoffset: 1600;
+            filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.4));
+            animation: svgWrite 2200ms ease 650ms forwards;
+        }
+
+        .signature-fill {
+            fill: rgba(255, 237, 246, 0.95);
+            font-family: "Brush Script MT", "Segoe Script", "Snell Roundhand", cursive;
+            font-size: 132px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            opacity: 0;
+            filter: drop-shadow(0 6px 22px rgba(0, 0, 0, 0.42));
+            animation: svgFill 620ms ease 2550ms forwards;
+        }
+
+        .sparkles {
+            position: absolute;
+            left: 50%;
+            top: 52%;
+            transform: translate(-50%, -50%);
+            width: min(78vw, 520px);
+            height: 180px;
+            pointer-events: none;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.95), rgba(255, 241, 248, 0));
+            opacity: 0;
+            transform: scale(0.2);
+            animation: twinkle 1500ms ease-in-out infinite;
+        }
+
+        .sparkle.s1 { left: 6%; top: 62%; animation-delay: 900ms; }
+        .sparkle.s2 { left: 18%; top: 24%; animation-delay: 1300ms; }
+        .sparkle.s3 { left: 34%; top: 68%; animation-delay: 1100ms; }
+        .sparkle.s4 { left: 52%; top: 20%; animation-delay: 1500ms; }
+        .sparkle.s5 { left: 64%; top: 64%; animation-delay: 1700ms; }
+        .sparkle.s6 { left: 80%; top: 28%; animation-delay: 1250ms; }
+        .sparkle.s7 { left: 90%; top: 58%; animation-delay: 1850ms; }
+
+        @keyframes introImageIn {
+            from {
+                opacity: 0;
+                transform: scale(1.08);
+                filter: saturate(0.85);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+                filter: saturate(1);
+            }
+        }
+
+        @keyframes svgWrite {
+            from {
+                stroke-dashoffset: 1600;
+            }
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes svgFill {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0.15);
+            }
+            45% {
+                opacity: 0.95;
+                transform: scale(1);
+            }
+            70% {
+                opacity: 0.35;
+                transform: scale(0.6);
+            }
+        }
+
+        @media (max-width: 520px) {
+            .signature-stroke,
+            .signature-fill {
+                font-size: 108px;
+            }
+        }
+
+        /* .phone::before {
+            content: "";
+            position: absolute;
+            top: 7px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 34%;
+            height: 6px;
+            background: rgba(128, 96, 113, 0.28);
+            border-radius: 20px;
+        } */
+
+        .header {
+            padding: 8px 4px 12px;
+        }
+
+        .headline {
+            margin: 0;
+            font-size: 1.25rem;
+            letter-spacing: 0.35px;
+        }
+
+        .subhead {
+            margin: 4px 0 0;
+            color: var(--muted);
+            font-size: 0.86rem;
+        }
+
+        .tabbar {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 8px;
+            margin: 0 2px 12px;
+            padding: 4px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(153, 105, 130, 0.16);
+        }
+
+        .tab {
+            border: 1px solid transparent;
+            border-radius: 10px;
+            min-height: 36px;
+            background: transparent;
+            color: #6a455a;
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.18px;
+            cursor: pointer;
+            transition: background-color var(--soft-transition), color var(--soft-transition), border-color var(--soft-transition), transform var(--soft-transition);
+        }
+
+        .tab:hover {
+            transform: translateY(-1px);
+            background: rgba(255, 255, 255, 0.45);
+        }
+
+        .tab:focus-visible {
+            outline: 0;
+            box-shadow: 0 0 0 3px rgba(179, 71, 127, 0.2);
+        }
+
+        .tab.active {
+            color: #ffffff;
+            background: var(--chip-active);
+            border-color: var(--chip-active-border);
+        }
+
+        .tab-panel {
+            display: none;
+            animation: panelIn 320ms ease;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        .home-image {
+            width: 80%;
+            height: auto;
+            object-fit: cover;
+            display: block;
+            opacity: 1;
+            transform: scale(1.03);
+            /* transition: opacity 460ms ease, transform 520ms ease; */
+        }
+
+        .wardrobe-stage {
+            position: relative;
+            border-radius: 26px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            box-shadow: var(--glow);
+            height: 64vh;
+            max-height: 630px;
+            min-height: 500px;
+            background: #f8eaf1;
+        }
+
+        .wardrobe-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            opacity: 0;
+            transform: scale(1.03);
+            transition: opacity 460ms ease, transform 520ms ease;
+        }
+
+        .wardrobe-image.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* .shade {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.3));
+            pointer-events: none;
+        } */
+
+        .outfit-name,
+        .outfit-description {
+            position: absolute;
+            margin: 0;
+            z-index: 2;
+            backdrop-filter: blur(5px);
+            transition: background-color var(--soft-transition), color var(--soft-transition), transform var(--soft-transition);
+        }
+
+        .outfit-name {
+            top: 18px;
+            left: 0;
+            max-width: 70%;
+            padding: 10px 14px 10px 16px;
+            border-radius: 0 14px 14px 0;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #ffffff;
+            background: var(--name-bg);
+            border: 1px solid rgba(255, 255, 255, 0.24);
+            border-left: 0;
+            text-shadow: 0 2px 8px rgba(60, 17, 41, 0.35);
+        }
+
+        .outfit-description {
+            right: 0;
+            top: 65%;
+            width: min(72%, 255px);
+            transform: translateY(-50%);
+            padding: 11px 14px 11px 14px;
+            border-radius: 14px 0 0 14px;
+            font-size: 0.86rem;
+            line-height: 1.45;
+            color: #382136;
+            background: var(--desc-bg);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-right: 0;
+        }
+
+        .selector {
+            margin-top: 14px;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 9px;
+        }
+
+        .placeholder {
+            min-height: 280px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            background:
+                radial-gradient(circle at 12% 10%, rgba(255, 255, 255, 0.4), transparent 40%),
+                linear-gradient(145deg, rgba(255, 241, 246, 0.9), rgba(247, 236, 255, 0.8));
+            box-shadow: var(--glow);
+            display: grid;
+            /* align-content: center; */
+            justify-items: center;
+            gap: 8px;
+            text-align: center;
+            padding: 14px 10px;
+        }
+
+        .placeholder h2 {
+            margin: 0;
+            font-size: 1.05rem;
+            color: #5b3048;
+        }
+
+        .placeholder h3 {
+            margin: 0;
+            font-size: 0.8rem;
+            color: #5b3048;
+        }
+
+        .placeholder p {
+            margin: 0;
+            font-size: 0.88rem;
+            color: #81566d;
+            line-height: 1.5;
+            max-width: 240px;
+        }
+
+        @keyframes panelIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chip {
+            border: 1px solid var(--chip-border);
+            border-radius: 999px;
+            min-height: 44px;
+            padding: 8px 11px;
+            background: var(--chip-bg);
+            color: #5d344b;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            cursor: pointer;
+            transition: transform var(--soft-transition), background-color var(--soft-transition), color var(--soft-transition), border-color var(--soft-transition), box-shadow var(--soft-transition);
+        }
+
+        .chip:hover {
+            transform: translateY(-1px);
+        }
+
+        .chip:focus-visible {
+            outline: 0;
+            box-shadow: 0 0 0 4px rgba(179, 71, 127, 0.24);
+        }
+
+        .chip.active {
+            color: #ffffff;
+            background: var(--chip-active);
+            border-color: var(--chip-active-border);
+            box-shadow: 0 9px 18px rgba(150, 57, 109, 0.35);
+        }
+
+        @media (max-width: 360px) {
+            .phone {
+                border-radius: 26px;
+                padding: 12px 12px 15px;
+            }
+
+            .wardrobe-stage {
+                min-height: 450px;
+            }
+
+            .selector {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="intro-movie" id="introMovie" aria-hidden="true">
+        <img
+            class="intro-image"
+            alt=""
+            src="./src/images/clsTrim.jpeg"
+        />
+        <div class="intro-shade"></div>
+        <div class="intro-signature-wrap" aria-hidden="true">
+            <svg class="intro-signature" viewBox="0 0 820 260" role="img" aria-label="Epel x Eve">
+                <text class="signature-stroke" x="50%" y="58%" text-anchor="middle">Epel x Eve</text>
+                <text class="signature-fill" x="50%" y="58%" text-anchor="middle">Epel x Eve</text>
+            </svg>
+        </div>
+        <div class="sparkles" aria-hidden="true">
+            <span class="sparkle s1"></span>
+            <span class="sparkle s2"></span>
+            <span class="sparkle s3"></span>
+            <span class="sparkle s4"></span>
+            <span class="sparkle s5"></span>
+            <span class="sparkle s6"></span>
+            <span class="sparkle s7"></span>
+        </div>
+    </div>
+
+    <main class="phone app-shell" id="appShell" aria-label="Wardrobe display in phone mode">
+        <header class="header">
+            <h1 class="headline">Epeve</h1>
+            <p class="subhead">名前のない楽園へ</p>
+        </header>
+
+        <nav class="tabbar" id="tabbar" role="tablist" aria-label="Main sections">
+            <button type="button" class="tab active" role="tab" aria-selected="true" aria-controls="panel-home" id="tab-home" data-tab="home">Home</button>
+            <button type="button" class="tab" role="tab" aria-selected="false" aria-controls="panel-character" id="tab-character" data-tab="character">Character</button>
+            <button type="button" class="tab " role="tab" aria-selected="true" aria-controls="panel-wardrobe" id="tab-wardrobe" data-tab="wardrobe">Wardrobe</button>
+            <button type="button" class="tab" role="tab" aria-selected="false" aria-controls="panel-article" id="tab-article" data-tab="article">Article</button>
+        </nav>
+
+        <section class="tab-panel active" id="panel-home" role="tabpanel" aria-labelledby="tab-home">
+            <div class="placeholder">
+                <h2>Epel Felmier & Eve Kerwin</h2>
+                <h3>夜空の隙間で会いましょう</h3>
+                <img class="home-image" src="./src/images/6thHug.jpeg">
+                <br>
+                <p>此網站內容為 迪士尼扭曲仙境中 エペル・フェルミエ 的女監愛情向夢創作。</p>
+            </div>
+        </section>
+
+        <section class="tab-panel" id="panel-character" role="tabpanel" aria-labelledby="tab-character">
+            <article class="placeholder">
+                <h2>Character</h2>
+                <p>Plan for character display.</p>
+            </article>
+        </section>
+
+        <section class="tab-panel" id="panel-wardrobe" role="tabpanel" aria-labelledby="tab-wardrobe" aria-live="polite">
+
+            <section class="selector" id="selector" role="radiogroup" aria-label="Outfit options">
+                <button type="button" class="chip active" role="radio" aria-checked="true"
+                    data-name="NRC"
+                    data-description="#NRC #泡泡襪 #迷你短裙 #青春"
+                    data-image="./src/images/default.png"
+                    data-accent="#b3477f"
+                    data-name-bg="rgba(179, 71, 127, 0.48)">
+                    NRC
+                </button>
+                <button type="button" class="chip" role="radio" aria-checked="false"
+                    data-name="Masquerade"
+                    data-description="#masquerade #NBC #舞池的天鵝"
+                    data-image="./src/images/mask.png"
+                    data-accent="#2f7da9"
+                    data-name-bg="rgba(47, 125, 169, 0.5)">
+                    Masquerade
+                </button>
+                <button type="button" class="chip" role="radio" aria-checked="false"
+                    data-name="オンボロ寮"
+                    data-description="#オンボロ寮 #貓耳帽 #幽靈們一致好評"
+                    data-image="./src/images/onboro.png"
+                    data-accent="#494949"
+                    data-name-bg="rgba(95, 143, 99, 0.52)">
+                    オンボロ寮
+                </button>
+                <button type="button" class="chip" role="radio" aria-checked="false"
+                    data-name="映画研究会"
+                    data-description="#映画研究会 #legging #vil說可愛"
+                    data-image="./src/images/clubwear.png"
+                    data-accent="#6a4f91"
+                    data-name-bg="rgba(106, 79, 145, 0.5)">
+                    映画研究会
+                </button>
+            </section>
+
+            <br>
+
+            <section class="wardrobe-stage" id="stage">
+                <img id="wardrobeImage" class="wardrobe-image" alt="Selected outfit" />
+                <div class="shade" aria-hidden="true"></div>
+                <h2 id="outfitName" class="outfit-name">Rose Brunch Set</h2>
+                <p id="outfitDescription" class="outfit-description">Soft blouse with ivory skirt. Light, sweet, and perfect for a bright afternoon walk.</p>
+            </section>
+
+        </section>
+
+        <section class="tab-panel" id="panel-article" role="tabpanel" aria-labelledby="tab-article">
+            <article class="placeholder">
+                <h2>Article Screen</h2>
+                <p>Manage Articles.</p>
+            </article>
+        </section>
+    </main>
+
+    <script>
+        const introMovie = document.getElementById('introMovie');
+        const appShell = document.getElementById('appShell');
+        const tabbar = document.getElementById('tabbar');
+        const tabs = Array.from(tabbar.querySelectorAll('.tab'));
+        const panels = Array.from(document.querySelectorAll('.tab-panel'));
+        const selector = document.getElementById('selector');
+        const chips = Array.from(selector.querySelectorAll('.chip'));
+        const image = document.getElementById('wardrobeImage');
+        const nameBox = document.getElementById('outfitName');
+        const descriptionBox = document.getElementById('outfitDescription');
+
+        function applyTab(tabButton) {
+            const targetTab = tabButton.dataset.tab;
+
+            tabs.forEach((tab) => {
+                const isActive = tab === tabButton;
+                tab.classList.toggle('active', isActive);
+                tab.setAttribute('aria-selected', String(isActive));
+                tab.tabIndex = isActive ? 0 : -1;
+            });
+
+            panels.forEach((panel) => {
+                panel.classList.toggle('active', panel.id === `panel-${targetTab}`);
+            });
+        }
+
+        function applySelection(chip) {
+            chips.forEach((item) => {
+                const active = item === chip;
+                item.classList.toggle('active', active);
+                item.setAttribute('aria-checked', String(active));
+            });
+
+            const name = chip.dataset.name || '';
+            const description = chip.dataset.description || '';
+            const imageUrl = chip.dataset.image || '';
+            const accent = chip.dataset.accent || '#b3477f';
+            const nameBackground = chip.dataset.nameBg || 'rgba(179, 71, 127, 0.48)';
+
+            nameBox.textContent = name;
+            descriptionBox.textContent = description;
+
+            document.documentElement.style.setProperty('--chip-active', accent);
+            document.documentElement.style.setProperty('--chip-active-border', accent);
+            document.documentElement.style.setProperty('--accent', accent);
+            document.documentElement.style.setProperty('--name-bg', nameBackground);
+
+            image.classList.remove('visible');
+            window.setTimeout(() => {
+                image.src = imageUrl;
+            }, 130);
+        }
+
+        image.addEventListener('load', () => {
+            image.classList.add('visible');
+        });
+
+        selector.addEventListener('click', (event) => {
+            const chip = event.target.closest('.chip');
+            if (!chip) return;
+            applySelection(chip);
+        });
+
+        selector.addEventListener('keydown', (event) => {
+            const activeIndex = chips.findIndex((chip) => chip.classList.contains('active'));
+            let next = -1;
+
+            if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+                next = (activeIndex + 1) % chips.length;
+            }
+
+            if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+                next = (activeIndex - 1 + chips.length) % chips.length;
+            }
+
+            if (next >= 0) {
+                event.preventDefault();
+                chips[next].focus();
+                applySelection(chips[next]);
+            }
+        });
+
+        tabbar.addEventListener('click', (event) => {
+            const tabButton = event.target.closest('.tab');
+            if (!tabButton) return;
+            applyTab(tabButton);
+        });
+
+        tabbar.addEventListener('keydown', (event) => {
+            const currentIndex = tabs.findIndex((tab) => tab.classList.contains('active'));
+            let next = -1;
+
+            if (event.key === 'ArrowRight') {
+                next = (currentIndex + 1) % tabs.length;
+            }
+
+            if (event.key === 'ArrowLeft') {
+                next = (currentIndex - 1 + tabs.length) % tabs.length;
+            }
+
+            if (next >= 0) {
+                event.preventDefault();
+                tabs[next].focus();
+                applyTab(tabs[next]);
+            }
+        });
+
+        applySelection(chips[0]);
+        applyTab(tabs[0]);
+
+        // Intro sequence: show movie first, then reveal app content.
+        window.setTimeout(() => {
+            introMovie.classList.add('fade-out');
+            appShell.classList.add('ready');
+        }, 4700);
+
+        window.setTimeout(() => {
+            introMovie.style.display = 'none';
+        }, 5900);
+    </script>
+</body>
+</html>
