@@ -8,23 +8,6 @@
     <link rel="icon" type="image/x-icon" href="./src/images/chibiIcon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        /* :root {
-            --bg-a: #ffe5ec;
-            --bg-b: #fef6dd;
-            --phone-shell: #fff9fb;
-            --ink: #3c1d2f;
-            --muted: #775064;
-            --chip-bg: rgba(255, 255, 255, 0.78);
-            --chip-border: rgba(111, 69, 96, 0.24);
-            --chip-active: #b3477f;
-            --chip-active-border: #8f2f63;
-            --accent: #b3477f;
-            --name-bg: rgba(179, 71, 127, 0.48);
-            --desc-bg: rgba(255, 255, 255, 0.56);
-            --glow: 0 16px 36px rgba(125, 54, 94, 0.22);
-            --soft-transition: 360ms cubic-bezier(0.22, 0.77, 0.25, 1);
-        } */
-
 
         :root {
             --bg-a: #fff4b8;
@@ -823,8 +806,8 @@
 
         .duo-toggle.active {
             color: #fff;
-            background: linear-gradient(145deg, #7a4fd6, #5a38a8);
-            border-color: #5d35af;
+            background: linear-gradient(145deg, #b3477f, #b3477f);
+            border-color: #b3477f;
         }
 
         .duo-view {
@@ -1321,6 +1304,11 @@
         <section class="tab-panel" id="panel-wardrobe" role="tabpanel" aria-labelledby="tab-wardrobe"
             aria-live="polite">
 
+            <section class="character-switch" id="characterSwitch" aria-label="Character switch">
+                <button type="button" class="character-button active" data-character="epel">Epel</button>
+                <button type="button" class="character-button" data-character="eve">Eve</button>
+            </section>
+
             <section class="selector-container">
                 <label for="outfit-select" class="selector-label">Choose an outfit:</label>
                 <div class="selector-shell">
@@ -1338,11 +1326,6 @@
                 <h2 id="outfitName" class="outfit-name">Outfit Name</h2>
                 <!-- <p id="characterPill" class="character-pill">Epel Wardrobe</p> -->
                 <p id="outfitDescription" class="outfit-description">Outfit Description.</p>
-            </section>
-
-            <section class="character-switch" id="characterSwitch" aria-label="Character switch">
-                <button type="button" class="character-button active" data-character="epel">Epel</button>
-                <button type="button" class="character-button" data-character="eve">Eve</button>
             </section>
 
         </section>
