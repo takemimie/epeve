@@ -8,7 +8,6 @@
     <link rel="icon" type="image/x-icon" href="./src/images/chibiIcon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-
         :root {
             --bg-a: #fff4b8;
             --bg-b: #e6d5ff;
@@ -516,6 +515,7 @@
             border-color: var(--chip-active-border);
             box-shadow: 0 10px 18px rgba(141, 61, 106, 0.32);
         }
+
         .selector-container {
             margin-top: 12px;
             display: flex;
@@ -720,7 +720,7 @@
             border: 1px solid rgba(138, 95, 123, 0.24);
             padding: 11px 10px;
             justify-items: center;
-            height: 350px;
+            height: 380px;
         }
 
         .character-portrait {
@@ -737,6 +737,7 @@
             margin: 0;
             font-size: 0.9rem;
             color: #5b3048;
+            white-space: nowrap;
         }
 
         .persona p {
@@ -750,7 +751,7 @@
             display: grid;
             justify-items: center;
             gap: 5px;
-            min-width: 68px;
+            min-width: 50px;
             color: #a34679;
             font-size: 0.74rem;
             font-weight: 700;
@@ -943,8 +944,6 @@
                 linear-gradient(145deg, rgba(255, 243, 177, 0.92), rgba(226, 206, 255, 0.88));
             box-shadow: var(--glow);
             padding: 12px;
-            display: grid;
-            gap: 8px;
         }
 
         .article-board h2 {
@@ -959,6 +958,7 @@
             background: rgba(255, 255, 255, 0.7);
             overflow: hidden;
             height: fit-content;
+            margin: 10px 0px;
         }
 
         .article-trigger {
@@ -1014,7 +1014,6 @@
             margin-top: 10px;
             display: block;
             object-fit: cover;
-            max-height: 165px;
             border: 1px solid rgba(138, 95, 123, 0.18);
             box-shadow: 0 8px 14px rgba(74, 34, 56, 0.16);
         }
@@ -1233,8 +1232,7 @@
                 <section class="duo-connection" aria-label="Relationship between Epel and Eve">
                     <article class="persona">
                         <h3>Epel Felmier</h3>
-                        <img class="character-portrait" 
-                             src="src/images/epel/portrait.jpeg">
+                        <img class="character-portrait" src="src/images/epel/portrait.jpeg">
                         <p>外表看起來是非常精緻漂亮的少年臉又小小隻<br>
                             實際上充滿男子氣概，有一顆想成為男子漢的心<br>
                             <br>
@@ -1246,8 +1244,7 @@
                     </div>
                     <article class="persona">
                         <h3>Eve Kerwin</h3>
-                        <img class="character-portrait" 
-                             src="src/images/eve/portrait.jpeg">
+                        <img class="character-portrait" src="src/images/eve/portrait.jpeg">
                         <p>散發著外國人自信大方隨和的氣場，常常笑面迎人，任何情緒都會很直接表現出來，也很容易因為情緒高漲而多講幾句話，熱情主動的性格讓她不管在原世界還是NRC都人緣很好。<br>
                             <!-- 會無自覺地直接表達自己的想法，以誇讚別人、表達主見或吐槽時居多，當下想到甚麼就說甚麼，但也懂得在大場合察言觀色，該認真時還是會認真思考和回答。<br>
                             好勝心很強，玩遊戲或是打比賽時總是會全力以赴，不喜歡輕易放棄或服輸。<br>
@@ -1258,9 +1255,12 @@
                 </section>
                 <ul class="duo-notes" aria-label="Relationship highlights">
                     <li>エペル在對方面前比較容易逞強耍帥，總是希望在喜歡的人面前看起來更可靠、更有男子氣概，例如一抓到機會就會偷偷站高 e.g.上樓梯故意走快一點 或 下樓梯走慢一點</li>
-                    <li>イフ雖然是主動方，實際上在愛情和感情方面很遲頓 會讓人抓狂的程度，交往前沒注意到自己感情時就已經會很直球稱讚エペル e.g.對方怎樣怎樣好可愛好酷超帥氣，而她直接的稱讚和笑容也是讓エペル最心動的事。</li>
-                    <li>イフ交往前後都很常對エペル有身體接觸，例如摸頭衝刺抱抱貼貼亂碰對方，她本來就很喜歡身體接觸且只有對女生小孩是這樣，對エペル則是像鄰家弟弟覺得他好小小好像弟弟才忍不住摸他頭，反而在確認關係後剛開始的一段時間裏曾因為害羞所以不敢亂碰對方。</li>
-                    <li>剛認識不久時這些行為會把エペル搞得很不爽，因為他很抗拒其他人以女生或柔弱的態度看待他，但鑒於對方是女生加上他要維持優雅安靜的形象，只會偷偷在內心發飆，後來知道了イフ其實沒有惡意，僅僅是她示好的行為，也就沒有意見和習慣了。</li>
+                    <li>イフ雖然是主動方，實際上在愛情和感情方面很遲頓 會讓人抓狂的程度，交往前沒注意到自己感情時就已經會很直球稱讚エペル
+                        e.g.對方怎樣怎樣好可愛好酷超帥氣，而她直接的稱讚和笑容也是讓エペル最心動的事。</li>
+                    <li>イフ交往前後都很常對エペル有身體接觸，例如摸頭衝刺抱抱貼貼亂碰對方，她本來就很喜歡身體接觸且只有對女生小孩是這樣，對エペル則是像鄰家弟弟覺得他好小小好像弟弟才忍不住摸他頭，反而在確認關係後剛開始的一段時間裏曾因為害羞所以不敢亂碰對方。
+                    </li>
+                    <li>剛認識不久時這些行為會把エペル搞得很不爽，因為他很抗拒其他人以女生或柔弱的態度看待他，但鑒於對方是女生加上他要維持優雅安靜的形象，只會偷偷在內心發飆，後來知道了イフ其實沒有惡意，僅僅是她示好的行為，也就沒有意見和習慣了。
+                    </li>
                 </ul>
 
                 <section class="duo-view active" id="duo-view-meter" aria-label="Status visualization">
@@ -1334,12 +1334,10 @@
             <article class="article-board" aria-label="Article board">
                 <h2>Article</h2>
 
-                <section class="article-item active">
+                <section class="article-item">
                     <button type="button" class="article-trigger">Village of Harvest</button>
                     <div class="article-content">
-                        <img class="article-image"
-                            src='src/images/harvest.jpeg'
-                            alt="Harvest" />
+                        <img class="article-image" src='src/images/harvest.jpeg' alt="Harvest" />
                         <p>🧇 ⸜⸜🍞⑅ 🥧 ⸝⁺
                             <br>
                             <br>𝘌𝘢𝘵, 𝘥𝘳𝘪𝘯𝘬, 𝘢𝘯𝘥 𝘣𝘦 𝘮𝘦𝘳𝘳𝘺：
@@ -1366,24 +1364,28 @@
                 </section>
 
                 <section class="article-item">
-                    <button type="button" class="article-trigger">Balancing Statement and Silence</button>
+                    <button type="button" class="article-trigger">Shall we see the stars?</button>
                     <div class="article-content">
                         <img class="article-image"
-                            src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=70"
-                            alt="Minimal and expressive style pairing" />
-                        <p>Outfit tension is intentional. When one look uses strong color blocks, the partner look
-                            shifts to muted tones and cleaner seams to keep visual breathing room.</p>
+                            src="src/images/hug.jpeg"
+                            alt="hug" />
+                        <p>𓈈 🥧 𓈈
+                            <br><br>「再一會就好——還抱不夠。」我蹭了蹭你的頸脖，如日常般肆意地掠奪屬於你的氣息。還是那股熟悉的蘋果香氣，是剛烤完蘋果派就匆匆趕來的吧。任憑肉桂和奶油的味道襲上鼻腔，暖呼呼的，像是一口氣將如臉盆般大的蘋果派吞進肚子裏一樣。
+                            <br><br>「明明前陣子還總是站得遠遠的，我都以為自己被討厭了⋯⋯呢。」「那是因為……！」你用指尖淘氣地往我的臉頰戳了數下，裝出一副調侃的語氣讓人無從反駁。好狡猾，你好狡猾。我邊鼓起臉邊嘟嘴就往你肩上埋，耳尖有點發燙，心裏嘀咕著剛開始交往會害羞又有什麼好奇怪的。卻又在數秒後貿然抬起眼，直直對上了那雙縹色的眸。那片澄澈的藍彷彿懵懂年紀裏迎來的某個清晨，遲遲未昇起的旭日使人迷茫又叫人充滿期盼，回過神來就已經笑彎了眼。
+                            <br><br>你問怎麼了。我細細搖頭然後說道，原來你眼裏的我總是在笑呀。這次你沒回答，只是耳邊沾連的溫度頓時越發燙熱。腰間安放的手悄悄收緊了些許，連同我的心也被輕輕攥了一下，不痛不癢，卻悸動不已。桌上晾著的蘋果派似乎有點放涼了，你嘴上嘟囔蘋果派果然還是要剛出爐、冒出熱騰騰的蒸氣時才美味。而我掌心裏柔柔握緊的衣角，叫住了你正要起身邁步的幅度。
+                            <br><br>『吶エペル，以後再帶我去看星星吧。』
+                            <br>『我還想再看一次，豐作村的星星。』
+                        </p>
                     </div>
                 </section>
 
                 <section class="article-item">
-                    <button type="button" class="article-trigger">From Daywear to Night Edit</button>
+                    <button type="button" class="article-trigger">Epel's Dream</button>
                     <div class="article-content">
                         <img class="article-image"
-                            src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1200&q=70"
+                            src="src/images/dreamEpel.jpeg"
                             alt="Evening fashion transition styling" />
-                        <p>Their transition rule is simple: keep one familiar element, then replace two. This preserves
-                            identity while changing the mood for evening settings.</p>
+                        <p>伊芙，俺是農村嘞，村裡人都說俺精細，以前感覺沒錢配不上你。俺可稀罕你，就給那風兒，吹過俺家地頭。地裡老紅薯都知道俺喜歡你。真嘞！恁看見嘍給俺回個話，誰欺負你我給他拼命！俺可喜歡你，嫁給俺吧。中不中？</p>
                     </div>
                 </section>
             </article>
