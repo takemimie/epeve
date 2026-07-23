@@ -407,11 +407,13 @@
             min-height: 500px;
             background: #f8eaf1;
             justify-items: center;
+            justify-content: center;
             padding-bottom: 60px;
             margin-top: 10px;
         }
 
         .wardrobe-image {
+            position: absolute;
             width: auto;
             height: 100%;
             padding: 20px;
@@ -1354,7 +1356,9 @@
             </section>
 
             <section class="wardrobe-stage" id="stage">
-                <img id="wardrobeImage" class="wardrobe-image" alt="Selected outfit" />
+                <!-- <div style="text-align: center;"> -->
+                    <img id="wardrobeImage" class="wardrobe-image" alt="Selected outfit" />
+                <!-- </div> -->
                 <!-- <div class="shade" aria-hidden="true"></div> -->
                 <h2 id="outfitName" class="outfit-name">Outfit Name</h2>
                 <!-- <p id="characterPill" class="character-pill">Epel Wardrobe</p> -->
