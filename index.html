@@ -366,6 +366,20 @@
             transform: scale(1.03);
         }
 
+        .facebook-icon {
+            color: white;
+            border-radius: 999px;
+            background-color: #b3477f;
+            width: 35px;
+            height: 35px;
+        }
+        
+        .facebook-icon i {
+            color: white;
+            padding-right: 5px;
+            font-size: 25px;
+            padding-top: 7px;
+        }
 
         /* blur the background, to make blurred edges that overflow the unblurred image that is on top */
 
@@ -572,9 +586,9 @@
 
         .selector-shell:focus-within {
             border-color: var(--chip-active);
-            box-shadow:
+            /* box-shadow:
                 0 0 0 3px rgba(122, 79, 214, 0.24),
-                0 13px 22px rgba(102, 71, 168, 0.24);
+                0 13px 22px rgba(102, 71, 168, 0.24); */
         }
 
         .selector-label {
@@ -936,7 +950,7 @@
         }
 
         .article-board {
-            min-height: 280px;
+            height: auto;
             border-radius: 24px;
             border: 1px solid rgba(255, 255, 255, 0.45);
             background:
@@ -1033,10 +1047,10 @@
             -moz-appearance: none !important;
         } */
 
-        select:hover,
+        /* select:hover,
         select:focus {
             background: #dddddd;
-        }
+        } */
 
 
         .placeholder {
@@ -1164,6 +1178,9 @@
 </head>
 
 <body>
+    <!-- Audio by https://pixabay.com/music/wedding-love-romantic-159266/ -->
+    <audio autoplay src="./src/audio/epeveMusic.mp3"></audio> 
+
     <div class="intro-movie" id="introMovie" aria-hidden="true">
         <img class="intro-image" alt="" src="./src/images/clsTrim.jpeg" />
         <div class="intro-shade"></div>
@@ -1221,6 +1238,12 @@
                 <p>此網站內容為 迪士尼扭曲仙境中 エペル・フェルミエ 的女監愛情向夢創作。</p>
                 <br>
                 <p>Thanks to:</p>
+                <br>
+                <div class="facebook-icon">
+                    <a href="https://www.facebook.com/share/17sHD1xEyy/?mibextid=wwXIfr">
+                        <i class="fa fa-facebook-f"></i>
+                    </a>
+                </div>
             </div>
         </section>
 
