@@ -406,20 +406,24 @@
             max-height: 630px;
             min-height: 500px;
             background: #f8eaf1;
-            justify-items: center;
-            justify-content: center;
+            /* justify-items: center;
+            justify-content: center; */
             padding-bottom: 60px;
             margin-top: 10px;
         }
 
         .wardrobe-image {
             position: absolute;
+            top: 0;
+            left: 50%;
             width: auto;
             height: 100%;
             padding: 20px;
             object-fit: cover;
+            object-position: center top;
             display: block;
             opacity: 0;
+            transform-origin: center top;
             transform: scale(1.03);
             transition: opacity 460ms ease, transform 520ms ease;
         }
@@ -585,9 +589,9 @@
         .selector-shell:hover {
             transform: translateY(-1px);
             border-color: var(--chip-active);
-            box-shadow:
+            /* box-shadow:
                 inset 0 1px 0 rgba(255, 255, 255, 0.95),
-                0 13px 22px rgba(138, 61, 104, 0.24);
+                0 13px 22px rgba(138, 61, 104, 0.24); */
         }
 
         .selector-shell:focus-within {
@@ -1356,7 +1360,7 @@
             </section>
 
             <section class="wardrobe-stage" id="stage">
-                <!-- <div style="text-align: center;"> -->
+                <!-- <div style="justify-items: center;"> -->
                     <img id="wardrobeImage" class="wardrobe-image" alt="Selected outfit" />
                 <!-- </div> -->
                 <!-- <div class="shade" aria-hidden="true"></div> -->
