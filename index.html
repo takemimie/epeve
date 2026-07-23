@@ -7,6 +7,12 @@
     <title>Epeve</title>
     <link rel="icon" type="image/x-icon" href="./src/images/chibiIcon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Waterfall Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Waterfall&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --bg-a: #fff4b8;
@@ -288,8 +294,11 @@
 
         .headline {
             margin: 0;
-            font-size: 1.25rem;
+            font-size: 3rem;
             letter-spacing: 0.35px;
+            font-family: "Waterfall", cursive;
+            font-weight: 400;
+            font-style: normal;
         }
 
         .subhead {
@@ -367,18 +376,17 @@
         }
 
         .facebook-icon {
-            color: white;
             border-radius: 999px;
             background-color: #b3477f;
             width: 35px;
             height: 35px;
         }
-        
+
         .facebook-icon i {
             color: white;
-            padding-right: 5px;
-            font-size: 25px;
+            font-size: 30px;
             padding-top: 7px;
+            z-index: 999;
         }
 
         audio::-webkit-media-controls-panel {
@@ -419,7 +427,7 @@
             flex: 0 0 auto;
             width: auto;
             height: 100%;
-            padding: 20px;
+            padding: 80px 20px 20px 20px;
             object-fit: cover;
             object-position: center top;
             display: block;
@@ -1026,11 +1034,21 @@
             animation: panelIn 280ms ease;
         }
 
+        .article-author {
+            font-size: 0.6rem !important; 
+            color: #7d6674b0 !important;
+        }
+
         .article-content p {
             margin: 10px 0 0;
             font-size: 0.81rem;
             color: #774d66;
             line-height: 1.45;
+
+            .article-author {
+                font-size: 0.6rem;
+                color: #7d6674b0;
+            }
         }
 
         .article-image {
@@ -1167,6 +1185,26 @@
             box-shadow: 0 9px 18px rgba(150, 57, 109, 0.35);
         }
 
+        .scroll-to-top-button {
+            display: none;
+            position: fixed;
+            align-items: right;
+            bottom: 20px;
+            right: 50px;
+            z-index: 1000;
+            background-color: #b3477f;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: text;
+            font-size: 15px;
+        }
+
+        .scroll-to-top-button.active {
+            display: block;
+        }
+
         @media (max-width: 360px) {
             .phone {
                 border-radius: 26px;
@@ -1259,6 +1297,9 @@
                         <i class="fa fa-facebook-f"></i>
                     </a>
                 </div>
+                <!-- <a href="https://www.facebook.com/share/17sHD1xEyy/?mibextid=wwXIfr">
+                        <i class="fa fa-facebook-f"></i>
+                    </a> -->
             </div>
         </section>
 
@@ -1362,7 +1403,7 @@
 
             <section class="wardrobe-stage" id="stage">
                 <!-- <div style="justify-items: center;"> -->
-                    <img id="wardrobeImage" class="wardrobe-image" alt="Selected outfit" />
+                <img id="wardrobeImage" class="wardrobe-image" alt="Selected outfit" />
                 <!-- </div> -->
                 <!-- <div class="shade" aria-hidden="true"></div> -->
                 <h2 id="outfitName" class="outfit-name">Outfit Name</h2>
@@ -1408,9 +1449,7 @@
                 <section class="article-item">
                     <button type="button" class="article-trigger">Shall we see the stars?</button>
                     <div class="article-content">
-                        <img class="article-image"
-                            src="src/images/hug.jpeg"
-                            alt="hug" />
+                        <img class="article-image" src="src/images/hug.jpeg" alt="hug" />
                         <p>𓈈 🥧 𓈈
                             <br><br>「再一會就好——還抱不夠。」我蹭了蹭你的頸脖，如日常般肆意地掠奪屬於你的氣息。還是那股熟悉的蘋果香氣，是剛烤完蘋果派就匆匆趕來的吧。任憑肉桂和奶油的味道襲上鼻腔，暖呼呼的，像是一口氣將如臉盆般大的蘋果派吞進肚子裏一樣。
                             <br><br>「明明前陣子還總是站得遠遠的，我都以為自己被討厭了⋯⋯呢。」「那是因為……！」你用指尖淘氣地往我的臉頰戳了數下，裝出一副調侃的語氣讓人無從反駁。好狡猾，你好狡猾。我邊鼓起臉邊嘟嘴就往你肩上埋，耳尖有點發燙，心裏嘀咕著剛開始交往會害羞又有什麼好奇怪的。卻又在數秒後貿然抬起眼，直直對上了那雙縹色的眸。那片澄澈的藍彷彿懵懂年紀裏迎來的某個清晨，遲遲未昇起的旭日使人迷茫又叫人充滿期盼，回過神來就已經笑彎了眼。
@@ -1424,15 +1463,89 @@
                 <section class="article-item">
                     <button type="button" class="article-trigger">Epel's Dream</button>
                     <div class="article-content">
-                        <img class="article-image"
-                            src="src/images/dreamEpel.jpeg"
+                        <img class="article-image" src="src/images/dreamEpel.jpeg"
                             alt="Evening fashion transition styling" />
-                        <p>伊芙，俺是農村嘞，村裡人都說俺精細，以前感覺沒錢配不上你。俺可稀罕你，就給那風兒，吹過俺家地頭。地裡老紅薯都知道俺喜歡你。真嘞！恁看見嘍給俺回個話，誰欺負你我給他拼命！俺可喜歡你，嫁給俺吧。中不中？</p>
+                        <p>伊芙，俺是農村嘞，村裡人都說俺精細，以前感覺沒錢配不上你。俺可稀罕你，就給那風兒，吹過俺家地頭。地裡老紅薯都知道俺喜歡你。真嘞！恁看見嘍給俺回個話，誰欺負你我給他拼命！俺可喜歡你，嫁給俺吧。中不中？
+                        </p>
                     </div>
                 </section>
+
+                <section class="article-item">
+                    <button type="button" class="article-trigger">一切都好極了</button>
+                    <div class="article-content">
+                        <p>被褥上覆了一層薄薄的月光，看著好脆弱，彷彿稍作吹彈就要如塵埃顆粒般崩散逃竄。エペル此刻幾乎要憋住呼吸，生怕自己的吐息一不小心就會紮破長夜的靜寂。剛三分鐘前兩人互道過晚安，オンボロ寮的床墊意外地軟得他好不習慣，眼皮闔了又開，開了又闔，就連翻來覆去的幅度都要計算得精準。
+                            <br><br>「エペル，你睡了嗎？」イフ試探性地問，嗓音比平日還要來得柔和。エペル聽出其中她怕擾人的猶豫，「還沒有，怎麼了？」「我要晚安吻。」イフ身上的沐浴乳香冷不防撲了エペル一臉，身子右側立馬沉甸甸的，她的臉蛋靠在胸膛上擠壓出可愛的形狀。
+                            <br><br>「怎麼突然⋯⋯」「我呀突然想起來，小時候臨睡前母親總是會給我晚安吻。所以現在想想エペル還欠我一個。」可以嗎？那三個簡單的字被念得好輕好輕，就好似羽毛尖有意無意撓過掌心的那一瞬，淺至皮膚深至骨髓，渾身會發癢難耐。エペル撇開了臉，兩頰軟肉悄悄漲紅了一片，越發滾燙。
+                            <br><br>女孩子是水造的呀，會融，會散，所以少年的愛也揉進了含蓄內斂。他的吻會隨思緒無規律地攪作一團有瑕疵的麵糊，靜靜懸在半空而不敢落下。
+                            <br><br>「真是拿妳沒辦法⋯⋯」就一個喔。エペル顧不上胸腔內跳得張揚的鼓動，撲通撲通的，他頓時有點慶幸人的心臟長在偏左手邊側。隔了肋骨，隔了臟器，至少他還能糊弄那是床腳不平所致的顫動。
+                            <br><br>エペル的指尖很涼，他輕柔地撩起イフ額前的碎髮，低頭就讓唇瓣貼上她溫熱的額。一秒，兩秒，好了，該睡覺了。「不是那裏，再親一個嘛。」イフ的尾音拉得特別黏膩，藏了池水的眼珠子滴溜溜地轉動，裏頭清澈見底不見絲毫狡詰。
+                            <br><br>可越是澄淨的海就越是危險，エペル沒乎，她吸呼的氣息接連撲向鎖骨處實在很折騰。於是他調整好呼吸，再往她的臉頰肉上緩緩啄了一下。
+                            <br><br>「エペル⋯⋯為什麼不親這裏？就不能親這裏嗎？」イフ納悶地抗議道，她不滿地湊近了些，漂亮的指尖點著微微扁起的嘴。但少女是很不會拿捏距離的，目與目之間的空隙小得可怕，促使エペル去尋找視線的新降落點。他忽地開始觀察起イフ的眼睫毛，細長濃密，末端還鍍了一抹淡淡的金黃，眨眼時一晃一晃的，好像傍晚六點海面上映照的夕陽餘暉，惹人憐愛而惋惜。
+                            <br><br>也許她呼出的二氧化碳會使人發迷糊，エペル頃刻察覺，不只是她的睫毛，原來他也會無原由地想親吻她的髮絲，她的頸脖，甚或是她的心臟，她的，她的，只要是她的一切都好極了。
+                            <br><br>エペル順著髮流撫過那把幾乎是亂瀉在他身上的金髮，指縫間連帶摻了好聞的花香。熟悉的氣味安撫了羞澀的躁動，他不自然地闔眼蹭過對方柔軟的鼻尖，迎來最純粹的唇貼唇。他不知道親吻是刻在靈魂裏的本能，蜜蜂吻玫瑰，天空吻大海，正如人們會吻彼此。世間萬物都是如此踉踉蹌蹌地學習，去吻他們所喜愛的，所憐惜的，所厭惡的。
+                            <br><br>他想，總會習慣的，總有一天會習慣該怎麼大方去吻她，愛她。緊挨的身體使寂靜的空氣變得溫軟，床鋪浸染白天陽光乾淨的味道，兩人枕著偷偷做了一被窩的美夢。
+                        </p>
+                    </div>
+                </section>
+
+                <section class="article-item">
+                    <button type="button" class="article-trigger">他的，她的，他們的</button>
+                    <div class="article-content">
+                        <p>「像ルークサン那樣滿口都是些肉麻的台詞，簡直難以啟齒！到底要怎麼辦才好⋯⋯」黑色襯衫的領口好貼服，エペル隨意抬手都覺肩膀繃緊，眉眼皺成一團，顯得一旁綻笑的イフ更是悠哉，「エペル，放輕鬆、放輕鬆！現在只是練習而已嘛。」
+                            <br><br>「イフサン倒是說的輕鬆⋯⋯就算對象是イフサン也還是⋯⋯有點難為情、呢。」正因為是妳，才更讓人不知所措啊！エペル沒好氣地心底叨叨，耳廓泛了一圈紅緋，兩臂垂於站得挺拔的背後，指尖扭擰，使勁要將滲汗的掌心攥出水似的。
+                            <br><br>早些時候，眾人在Mr.S的神秘商店裏高價購入向幽靈求婚用的特別晚禮服。那當然是學園長自掏腰包的。サム樂得合不攏嘴，除了特典道具外也連帶附上一套不俗的禮服裙給監督生說是贈品，她便趁空檔穿了換了。少女心雀躍不已，晃動身子爛漫地問好看嗎，那刻エペル沒如她所願去望那身新衣裳，只見對方眸底的光如潮水泛濫，幾乎要缺氧的腦袋暈乎乎的，頭一回體會到淡水魚兒在茫茫大海裏掙扎求存的窒息感。
+                            <br><br>思及此，エペル忽地晃晃頭，將那些莫名其妙的念頭甩到腦後，是該專心正事了。イフ沒在意エペル的異樣，悄悄彎起眼，「公主殿下要求的『理想中的王子殿下』肯定和我差不多，所以只要能打動我，那就絕對萬無一失了。」頓了頓後繼續道，「エペル就練習到我滿意為止吧♪」
+                            <br><br>「⋯⋯那，イフサン知道什麼具體的標準或技巧嗎？」
+                            <br><br>「比如說，要讓人有心動的感覺？女孩子嚮往的求婚就是要心臟撲通撲通地跳才像樣。」イフ合上手，歪著頭想得投入的模樣好得意的。偏偏エペル只覺得道理空泛，什麼心臟，什麼撲通撲通，就是抓破頭殼也沒能搞個清楚明白，思來想去他有的也只是十六歲的年少氣盛呀。後來，是更後來，エペル眉頭緊蹙，苦惱地接過イフ剛遞來的水，嚥下唇齒間吐不完整的甜言蜜語，暗暗嘮叨，
+                            <br><br>「嗚、理想中的王子殿下什麼的⋯⋯果然好難啊⋯⋯」
+                            <br><br>イフ伸出指尖抵在唇邊，抬起眼彷彿在思索什麼，「要不，試著用エペル的風格說說看怎麼樣？」
+                            <br><br>「我的風格？」エペル聞言眉頭舒開了些。
+                            <br><br>「先別管理想中的王子殿下會怎麼做，エペル自己會怎麼向喜歡的人表達呢？」イフ徑自站起身來，朝綴了星辰的夜幕走了幾步。エペル望住被月光融化輪廓的背影，倒是無厘頭覺得心頭痕癢，高跟鞋的鞋跟好似踏在胸腔內咯咯作響，「像是必須要傳達出去的話語，抑或是替對方著想的心意⋯⋯這些全部都包含著エペル的真心，是很重要的事情喔。」
+                            <br><br>少女轉頭的幅度不大，剛剛好，剛好到能讓エペル看清她嘴角邊的笑容也好美。エペル有時候會發現イフ本來就泛著淡淡的光，頭至指尖，肩至腳跟，睫毛抖動時會有光芒灑落，尤其是那雙藍粉色的瞳孔裏頭藏了一池子被揉碎的星體。他未曾想過星竟是觸手可及的，據說宇宙正以超乎人類預期的速度膨脹，星體終將遠離彼此冷冷留下一片孤獨寂寥，偏偏エペル有著十六歲的年少氣盛，就是連光年也不足為懼。
+                            <br><br>「所以我想，公主殿下也一定會感受到的。」頃刻間，イフ踩著輕快的步伐佇足在エペル跟前，隨後邀請似地緩緩伸出手，「來試試看吧，用エペル的方式。」
+                            <br><br>碰巧晚風徐徐吹來，拂去腦內嗡鳴。エペル沒愣住，連忙清清嗓子，覆上對方掌心，「好、好！那我要開始了。」
+                            <br><br>「我、我不擅長說那些漂亮的話，像電影書本裏面那種單膝跪下、再掏出玫瑰花和戒指的浪漫橋段⋯⋯倒不如說，那太不像我了。」エペル垂下眼簾，仔細斟酌每一串吐字用詞，
+                            <br><br>「但我願意為了保護公主殿下拼上性命！不管遇到什麼困難我都絕對不會退縮，我會變得更強大，更強壯，不讓妳受到任何傷害。」他的嘴巴確實不靈光，拼湊不出情話綿綿，可少年闔眼時仍會笑，只因漆黑裏點點星火燃起都好似她。如果是她，如果是她，「相信我⋯⋯我一定會讓公主殿下幸福的。」
+                            <br><br>「所以拜託妳了。請跟我結婚吧！」
+                            <br><br>笑意在溫軟的風裏紛飛流轉，他的，她的，他們的。
+                        </p>
+                    </div>
+                </section>
+
+                <section class="article-item">
+                    <button type="button" class="article-trigger">那一場雨</button>
+                    <div class="article-content">
+                        <p class="article-author">噗浪文字轉蛋 長期台 chili6593 November 13, 2025</p>
+                        <p>她已經不記得，記憶裡的那一天究竟有沒有下過那一場雨了。
+                            <br>灰濛濛的天空像是老舊電視裡寂靜無聲的黑白畫面，從巷口方向帶著神祕莫測的姿態走來的風輕盈繞過街道上的雜物堆，帶著欲雨的潮氣和揮發的汽油味道掠過駐足在路中間的イフ・カーウィン。
+                            <br>還是，這一切也僅僅只是來自於一場她分不清的夢境而已呢。
+                            <br>撐著一把透明大傘的少女像是穿越過那段濃密的、帶著悲傷的霧氣，探出傘面的白皙手掌掌心朝上，接住了這場雨匆匆忙忙落下的第一滴雨點。
+                            <br>──她或許曾經在哪個地方，也做過與現在同樣的事情。
+                            <br>イフ有些失神地看著手心裡逐漸累積成小小水窪的雨水，彷彿能看見那個明明撐著傘卻傻傻抬起手的自己，正在專注試著接住正漫天飛舞著下落的什麼東西。
+                            <br>「イフサン？」
+                            <br>遠遠走來就看見那抹從來燦爛的光宛若褪色般慢慢踏入雨中的エペル・フェルミエ皺起眉，抑制不住自己心底湧現的奇怪驚恐，他加快步伐走向聞聲回過神來的イフ。
+                            <br>「你來啦？エペル。」揚起笑容的イフ歪過自己手裡的傘，將淋著小雨跑來的人籠罩進傘的保護範圍內，「今天下雨了耶。你看，這樣透明的傘布能看見雨滴濺起的水花和滴落的模樣，很漂亮對不對？」
+                            <br>想接過傘柄又有些手足無措的青年抿住唇瓣，那雙盛滿光的瞳眸輕輕一瞪，從口袋裡取出被迫習慣隨身攜帶的手帕，不容許拒絕地自顧自擦拭起少女淋得濕透了的手。
+                            <br>「咦，原來エペル最後選擇了這塊花色的布料來做訂製手帕嗎？這個顏色好適合你呢，這樣看起來真的好可愛。」
+                            <br>「……那也不是妳可以就這樣站在這裡發呆的原因吧？我只是上完課回來而已，又不是什麼不會回來的場景！說到這裡，我也根本沒有遲到什麼的吧？」
+                            <br>望著エペル邊認真疊起手帕擦拭她被打濕的指間、邊如同以往那樣抱怨著她的舉動，只是在等待對方赴約的期間稍稍發呆了一會兒的イフ眨眨眼，在エペル不時抬頭拋來的目光裡，終於沒忍住低低笑了起來。
+                            <br>她笑著收回自己被釋放回來的手，「抱歉啦，我不是故意要讓エペル擔心我的。我只是覺得──嗯，我好像在以前也有在哪裡看過這樣的場景，可是無論怎麼樣都想不起來了呢。」
+                            <br>以前也有聽イフ說過類似話語的エペル垂下眼眸，沒有立刻回答這句猶如沾著水氣的呢喃低語，而是伸手壓平那頭奶油色的捲髮上不知為何翹起的呆毛，順帶撥去上頭沾著的幾顆水珠。
+                            <br>「以後，還會有更多值得被記住的事情的吧。」
+                            <br>「嗯？エペル偷偷在說些什麼呢──？啊，等等，今天想吃的店就是這間！太好啦，剛好到我們提早跟店家預約好的時間了，走吧！」
+                            <br>窗外的雨在不知不覺間停了下來，熟悉的街景在泛起霧氣的玻璃上被模糊出一圈圈暈開的微光，像是吞沒了所有未曾想起與未能想起的遺憾。
+                            <br>安靜盯了會イフ一如往常開心翻著菜單的側臉，エペル轉頭看向窗戶，無聊地抬指在空氣中描畫著對方的倒影。
+                            <br>──那一場雨啊。
+                            <br>或許會在未來他們兩人都在的某一天，再一次以令她記憶深刻的方式以不同的色彩落下，並徹底覆蓋住她過去的哀傷吧。
+                        </p>
+                    </div>
+                </section>
+
             </article>
         </section>
     </main>
+
+    <button class="scroll-to-top-button" onclick="scrollToTop()" id="scrollTopBtn" title="Go to top">Top</button>
 
     <script>
         const introMovie = document.getElementById('introMovie');
@@ -1656,6 +1769,8 @@
 
             const item = trigger.closest('.article-item');
             item.classList.toggle('active');
+            const scrollTopBtn = document.getElementById("scrollTopBtn");
+            scrollTopBtn.classList.toggle('active');
         });
 
         duoToolbar.addEventListener('click', (event) => {
@@ -1710,6 +1825,14 @@
         window.setTimeout(() => {
             introMovie.style.display = 'none';
         }, 5900);
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
     </script>
 </body>
 
